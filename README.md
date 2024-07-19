@@ -1,3 +1,5 @@
+# CHIMPS calculator
+
 A simple yet effective calculator with features made to help you get those juicy black borders in BTD6
 
 
