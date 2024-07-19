@@ -10,7 +10,7 @@ A simple yet effective calculator with features made to help you get those juicy
 
 You can just download the .exe file. Nothing else should be required.
 
-Alternatively if you have go installed you can build it to .exe file with this command: 
+Alternatively if you have go installed and fyne setted up you can build it to .exe file with this command: 
 ```
 go build -ldflags -H=windowsgui -o CHIMPS_calc.exe main.go
 ```
