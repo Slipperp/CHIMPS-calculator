@@ -14,6 +14,7 @@ Alternatively if you have go installed and fyne setted up you can build it to .e
 ```
 go build -ldflags -H=windowsgui -o CHIMPS_calc.exe main.go
 ```
+I only have windows so I don't know how to build it to other systems
 
 # Note
 
