@@ -9,3 +9,8 @@ A simple yet effective calculator with features made to help you get those juicy
 # Download
 
 You can just download the .exe file. Nothing else should be required
+
+
+# Note
+
+This app is still under the development. Expect new features to be added and bugs to be fixed
