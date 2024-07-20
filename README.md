@@ -18,4 +18,4 @@ I only have windows so I don't know how to build it to other systems
 
 # Note
 
-This app is still under the development. Expect new features to be added and bugs to be fixed
+This app is still under the development. Expect new features to be added and bugs to be fixed!
