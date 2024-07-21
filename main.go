@@ -6,9 +6,9 @@ import (
 
 	"strings"
 
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/container"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
 )
 
 func calculateMoney(startingRound int, endRound int) int {
@@ -194,7 +194,6 @@ func main() {
 	a := app.New()
 	w := a.NewWindow("BTD6 Calculator")
 
-	//w.Resize(fyne.NewSize(600, 380))
 	label1 := widget.NewLabel("")
 	label2 := widget.NewLabel("")
 	label3 := widget.NewLabel("")
@@ -323,7 +322,7 @@ func main() {
 	selectWidget2Owned.PlaceHolder = "Mid path upgrades"
 	selectWidget3Owned.PlaceHolder = "Bot path upgrades"
 
-	check := widget.NewCheck("I have 000 tower placed", func(checked bool) {
+	check := widget.NewCheck("I have the tower placed", func(checked bool) {
 		if checked {
 			selectWidget1Owned.Show()
 			selectWidget2Owned.Show()
