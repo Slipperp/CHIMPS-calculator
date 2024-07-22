@@ -6,8 +6,10 @@ import (
 
 	"strings"
 
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -567,35 +569,72 @@ func main() {
 		container.NewCenter(calculateButton),
 		label1,
 		label2,
-		widget.NewSeparator(),
-		container.NewVBox(
-			container.NewCenter(someText),
-			container.NewVBox(entry, selectWidget),
-			check,
-			container.NewGridWithColumns(3,
-				container.NewVBox(
-					widget.NewLabel("Tower to buy:"),
-					selectWidget1,
-					selectWidget2,
-					selectWidget3,
-				),
-				container.NewCenter(calculatePathsButton),
-				container.NewVBox(
-					label5,
-					selectWidget1Owned,
-					selectWidget2Owned,
-					selectWidget3Owned,
-				),
+	)
+
+	setContent := func(elements ...fyne.CanvasObject) {
+		content.Objects = elements
+		content.Refresh()
+	}
+
+	btn1 := widget.NewButton("Round cash", func() {
+		setContent(
+			container.NewCenter(text),
+			container.NewGridWithColumns(2,
+				widget.NewLabel("Starting Round:"), sRound,
+				widget.NewLabel("End Round:"), eRound,
+				widget.NewLabel("Money on Hand:"), pMoney,
 			),
-			start,
-			cash,
-		),
-		label3,
-		label4,
+			container.NewCenter(calculateButton),
+			label1,
+			label2,
+		)
+	})
+
+	uselessButton := widget.NewButton("Calculate Paths Button", func() {
+
+	})
+	uselessButton.Hide()
+
+	btn2 := widget.NewButton("Tower cost", func() {
+		setContent(
+			container.NewVBox(
+				container.NewCenter(someText),
+				container.NewVBox(entry, selectWidget),
+				check,
+				container.NewGridWithColumns(3,
+					container.NewVBox(
+						widget.NewLabel("Tower to buy:"),
+						selectWidget1,
+						selectWidget2,
+						selectWidget3,
+					),
+					container.NewCenter(uselessButton),
+					container.NewVBox(
+						label5,
+						selectWidget1Owned,
+						selectWidget2Owned,
+						selectWidget3Owned,
+					),
+				),
+				start,
+				cash,
+				container.NewCenter(calculatePathsButton),
+			),
+			label3,
+			label4,
+		)
+	})
+
+	buttonContainer := container.New(layout.NewGridLayoutWithColumns(2), btn1, btn2)
+
+	bottomContainer := container.NewVBox(
 		widget.NewSeparator(),
 		container.NewCenter(quitButton),
 	)
 
-	w.SetContent(content)
+	mainContainer := container.NewBorder(buttonContainer, bottomContainer, nil, nil, content)
+
+	w.Resize(fyne.NewSize(590, 560))
+	w.SetContent(mainContainer)
 	w.ShowAndRun()
 }
