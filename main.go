@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 
 	"strings"
@@ -60,6 +61,69 @@ func calculateTower(cost int, startingR int, money int) int {
 
 	endRound--
 	return endRound
+}
+
+func calculateXp(difficulty string, round int, heroType float64) [20]int {
+	xpNeeded := []float64{180, 460, 1000, 1860, 3280, 5180, 8320, 9380, 13620, 16380, 14400, 16650, 14940, 16380, 17820, 19260, 20700, 16470, 17280}
+	xpGained := []float64{40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 460, 500, 540, 580, 620, 660, 700, 740, 780, 820, 860, 900, 940, 980, 1020, 1060, 1100, 1140, 1180, 1220, 1260, 1300, 1340, 1380, 1420, 1460, 1500, 1540, 1580, 1620, 1710, 1800, 1890, 1980, 2070, 2160, 2250, 2340, 2430, 2520, 2610, 2700, 2790, 2880, 2970, 3060, 3150, 3240, 3330, 3420, 3510, 3600, 3690, 3780, 3870, 3960, 4050, 4140, 4230, 4320, 4410, 4500, 4590, 4680, 4770, 4860, 4950, 5040, 5130, 5220, 5310, 5400, 5490, 5580, 5670, 5760, 5850, 5940, 6030, 6120}
+	imGoingInsane := [20]int{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+	if difficulty == "Intermediate" {
+		for i := 0; i < len(xpGained); i++ {
+			xpGained[i] = xpGained[i] * 1.1
+		}
+	} else if difficulty == "Advanced" {
+		for i := 0; i < len(xpGained); i++ {
+			xpGained[i] = xpGained[i] * 1.2
+		}
+	} else if difficulty == "Expert" {
+		for i := 0; i < len(xpGained); i++ {
+			xpGained[i] = xpGained[i] * 1.3
+		}
+	}
+
+	if heroType == 1.425 {
+		for i := 0; i < len(xpNeeded); i++ {
+			xpNeeded[i] = xpNeeded[i] * heroType
+		}
+	} else if heroType == 1.5 {
+		for i := 0; i < len(xpNeeded); i++ {
+			xpNeeded[i] = xpNeeded[i] * heroType
+		}
+	} else if heroType == 1.71 {
+		for i := 0; i < len(xpNeeded); i++ {
+			xpNeeded[i] = xpNeeded[i] * heroType
+		}
+	}
+
+	imGoingInsane[0] = round
+	round--
+	level := 0
+
+	for i := round; i < len(xpGained); {
+		xpForLevel := xpNeeded[level]
+		for xpForLevel >= 0 {
+			xpForLevel -= xpGained[i]
+
+			i++
+			if i == 100 {
+				return imGoingInsane
+			}
+
+			if xpForLevel < 0 {
+				leftOverXp := math.Abs(xpForLevel)
+				xpGained[i] = xpGained[i] + leftOverXp
+			}
+
+		}
+		level++
+		imGoingInsane[level] = i + 1
+
+		if level == 19 {
+			break
+		}
+	}
+	return imGoingInsane
 }
 
 func main() {
@@ -368,6 +432,12 @@ func main() {
 			return
 		}
 
+		if currRoundInt > 100 {
+			message3 := "Invalid round"
+			label3.SetText(message3)
+			return
+		}
+
 		if topWanted+midWanted+botWanted > 7 {
 			message3 := "Invalid tower upgrade path"
 			label3.SetText(message3)
@@ -559,6 +629,167 @@ func main() {
 	someText := widget.NewLabel("Tower cost calculator")
 	entry.SetPlaceHolder("Enter tower name")
 
+	originalOptions3 := []string{"Quincy", "Gwendolin", "Striker Jones", "Obyn", "Etienne", "Geraldo", "Ezili", "Pat Fusty", "Admiral Brickell", "Sauda", "Benjamin", "Psi", "Captain Churchill", "Adora", "Corvus"}
+	options3 := originalOptions3
+
+	entry2 := widget.NewEntry()
+	selectWidget15 := widget.NewSelect(options3, func(selected string) {
+		entry2.SetText(selected)
+	})
+
+	selectWidget15.Hide()
+
+	entry2.OnChanged = func(s string) {
+		if s == "" {
+			selectWidget15.Hide()
+			return
+		}
+
+		filtered := []string{}
+		for _, option := range originalOptions3 {
+			if strings.HasPrefix(strings.ToLower(option), strings.ToLower(s)) {
+				filtered = append(filtered, option)
+			}
+		}
+
+		if len(filtered) == 0 {
+			selectWidget15.Hide()
+			return
+		}
+
+		options3 = filtered
+		selectWidget15.Options = options3
+		selectWidget15.Refresh()
+		selectWidget15.Show()
+	}
+
+	entry2.SetPlaceHolder("Enter hero name")
+
+	heroRound := widget.NewEntry()
+	heroRound.SetPlaceHolder("Enter round")
+
+	difficulty := "Begginer"
+	Difficulties := []string{"Begginer", "Intermediate", "Advanced", "Expert"}
+	mapDifficulty := widget.NewSelect(Difficulties, func(s string) {
+		difficulty = s
+	})
+
+	level1 := widget.NewLabel("")
+	level2 := widget.NewLabel("")
+	level3 := widget.NewLabel("")
+	level4 := widget.NewLabel("")
+	level5 := widget.NewLabel("")
+	level6 := widget.NewLabel("")
+	level7 := widget.NewLabel("")
+	level8 := widget.NewLabel("")
+	level9 := widget.NewLabel("")
+	level10 := widget.NewLabel("")
+	level11 := widget.NewLabel("")
+	level12 := widget.NewLabel("")
+	level13 := widget.NewLabel("")
+	level14 := widget.NewLabel("")
+	level15 := widget.NewLabel("")
+	level16 := widget.NewLabel("")
+	level17 := widget.NewLabel("")
+	level18 := widget.NewLabel("")
+	level19 := widget.NewLabel("")
+	level20 := widget.NewLabel("")
+
+	xpButton := widget.NewButton("Calculate hero leveling", func() {
+		heroPlacement := 1
+
+		if num, err := strconv.Atoi(heroRound.Text); err == nil {
+			heroPlacement = num
+		}
+
+		if heroPlacement > 100 {
+			level1.SetText("Invalid round")
+			return
+		}
+
+		heroMultiplayer := 1.0
+
+		if entry2.Text == "Quincy" || entry2.Text == "Gwendolin" || entry2.Text == "Striker Jones" || entry2.Text == "Obyn" || entry2.Text == "Etienne" || entry2.Text == "Geraldo" {
+			heroMultiplayer = 1
+		} else if entry2.Text == "Ezili" || entry2.Text == "Pat Fusty" || entry2.Text == "Admiral Brickell" || entry2.Text == "Sauda" || entry2.Text == "Rosalia" {
+			heroMultiplayer = 1.425
+		} else if entry2.Text == "Benjamin" || entry2.Text == "Psi" {
+			heroMultiplayer = 1.5
+		} else if entry2.Text == "Corvus" || entry2.Text == "Adora" || entry2.Text == "Captain Churchill" {
+			heroMultiplayer = 1.71
+		}
+
+		imGoingInsane := calculateXp(difficulty, heroPlacement, heroMultiplayer)
+
+		messages := make([]string, 0)
+
+		for i := 0; i < len(imGoingInsane); i++ {
+			if imGoingInsane[i] > 0 {
+				message := fmt.Sprintf("Level %d: round %d", i+1, imGoingInsane[i])
+				messages = append(messages, message)
+			}
+		}
+
+		level1.SetText(messages[0])
+		if len(messages) >= 2 {
+			level2.SetText(messages[1])
+		}
+		if len(messages) >= 3 {
+			level3.SetText(messages[2])
+		}
+		if len(messages) >= 4 {
+			level4.SetText(messages[3])
+		}
+		if len(messages) >= 5 {
+			level5.SetText(messages[4])
+		}
+		if len(messages) >= 6 {
+			level6.SetText(messages[5])
+		}
+		if len(messages) >= 7 {
+			level7.SetText(messages[6])
+		}
+		if len(messages) >= 8 {
+			level8.SetText(messages[7])
+		}
+		if len(messages) >= 9 {
+			level9.SetText(messages[8])
+		}
+		if len(messages) >= 10 {
+			level10.SetText(messages[9])
+		}
+		if len(messages) >= 11 {
+			level11.SetText(messages[10])
+		}
+		if len(messages) >= 12 {
+			level12.SetText(messages[11])
+		}
+		if len(messages) >= 13 {
+			level13.SetText(messages[12])
+		}
+		if len(messages) >= 14 {
+			level14.SetText(messages[13])
+		}
+		if len(messages) >= 15 {
+			level15.SetText(messages[14])
+		}
+		if len(messages) >= 16 {
+			level16.SetText(messages[15])
+		}
+		if len(messages) >= 17 {
+			level17.SetText(messages[16])
+		}
+		if len(messages) >= 18 {
+			level18.SetText(messages[17])
+		}
+		if len(messages) >= 19 {
+			level19.SetText(messages[18])
+		}
+		if len(messages) >= 20 {
+			level20.SetText(messages[19])
+		}
+	})
+
 	content := container.NewVBox(
 		container.NewCenter(text),
 		container.NewGridWithColumns(2,
@@ -625,7 +856,54 @@ func main() {
 		)
 	})
 
-	buttonContainer := container.New(layout.NewGridLayoutWithColumns(2), btn1, btn2)
+	heroLevelText := widget.NewLabel("Hero leveling calculator")
+
+	btn3 := widget.NewButton("Hero level", func() {
+		setContent(
+			container.NewCenter(heroLevelText),
+			container.NewVBox(entry2, selectWidget15),
+			container.NewGridWithColumns(2,
+				widget.NewLabel("When hero was placed: "), heroRound,
+				widget.NewLabel("Map difficulty: "), mapDifficulty,
+			),
+			container.NewCenter(xpButton),
+
+			container.NewCenter(
+				container.NewHBox(
+					container.NewVBox(
+						level1,
+						level2,
+						level3,
+						level4,
+						level5,
+					),
+					container.NewVBox(
+						level6,
+						level7,
+						level8,
+						level9,
+						level10,
+					),
+					container.NewVBox(
+						level11,
+						level12,
+						level13,
+						level14,
+						level15,
+					),
+					container.NewVBox(
+						level16,
+						level17,
+						level18,
+						level19,
+						level20,
+					),
+				),
+			),
+		)
+	})
+
+	buttonContainer := container.New(layout.NewGridLayoutWithColumns(3), btn1, btn2, btn3)
 
 	bottomContainer := container.NewVBox(
 		widget.NewSeparator(),
