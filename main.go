@@ -717,6 +717,9 @@ func main() {
 			heroMultiplayer = 1.5
 		} else if entry2.Text == "Corvus" || entry2.Text == "Adora" || entry2.Text == "Captain Churchill" {
 			heroMultiplayer = 1.71
+		} else {
+			level1.SetText("Invalid hero name")
+			return
 		}
 
 		imGoingInsane := calculateXp(difficulty, heroPlacement, heroMultiplayer)
