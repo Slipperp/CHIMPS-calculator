@@ -629,7 +629,7 @@ func main() {
 	someText := widget.NewLabel("Tower cost calculator")
 	entry.SetPlaceHolder("Enter tower name")
 
-	originalOptions3 := []string{"Quincy", "Gwendolin", "Striker Jones", "Obyn", "Etienne", "Geraldo", "Ezili", "Pat Fusty", "Admiral Brickell", "Sauda", "Benjamin", "Psi", "Captain Churchill", "Adora", "Corvus"}
+	originalOptions3 := []string{"Quincy", "Gwendolin", "Striker Jones", "Obyn", "Etienne", "Geraldo", "Ezili", "Rosalia", "Pat Fusty", "Admiral Brickell", "Sauda", "Benjamin", "Psi", "Captain Churchill", "Adora", "Corvus"}
 	options3 := originalOptions3
 
 	entry2 := widget.NewEntry()
@@ -870,7 +870,6 @@ func main() {
 				widget.NewLabel("Map difficulty: "), mapDifficulty,
 			),
 			container.NewCenter(xpButton),
-
 			container.NewCenter(
 				container.NewHBox(
 					container.NewVBox(
