@@ -837,14 +837,14 @@ func main() {
 				check,
 				container.NewGridWithColumns(3,
 					container.NewVBox(
-						widget.NewLabel("Tower to buy:"),
+						container.NewCenter(widget.NewLabel("Tower to buy")),
 						selectWidget1,
 						selectWidget2,
 						selectWidget3,
 					),
 					container.NewCenter(uselessButton),
 					container.NewVBox(
-						label5,
+						container.NewCenter(label5),
 						selectWidget1Owned,
 						selectWidget2Owned,
 						selectWidget3Owned,
