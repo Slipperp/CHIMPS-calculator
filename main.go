@@ -140,9 +140,9 @@ func main() {
 	}
 
 	bombShooter := [3][6]int{
-		{0, 380, 700, 1190, 3455, 59400},
-		{0, 270, 430, 1190, 3350, 27540},
-		{0, 215, 325, 865, 3025, 30240},
+		{0, 270, 700, 1190, 3455, 59400},
+		{0, 270, 430, 1190, 3620, 30240},
+		{0, 215, 325, 865, 3025, 27540},
 	}
 
 	tackShooter := [3][6]int{
@@ -160,12 +160,12 @@ func main() {
 	glueGunner := [3][6]int{
 		{0, 215, 325, 2700, 5400, 23760},
 		{0, 110, 1045, 2270, 4160, 17280},
-		{0, 300, 430, 3890, 3670, 25920},
+		{0, 300, 430, 3890, 4320, 25920},
 	}
 
 	sniperMonkey := [3][6]int{
 		{0, 380, 1405, 3240, 6100, 34560},
-		{0, 270, 485, 2590, 8210, 15660},
+		{0, 270, 485, 2270, 8210, 15660},
 		{0, 485, 485, 3130, 4430, 15875},
 	}
 
@@ -176,7 +176,7 @@ func main() {
 	}
 
 	monkeyBuccaneer := [3][6]int{
-		{0, 295, 460, 3295, 7450, 26460},
+		{0, 295, 460, 3295, 8640, 26460},
 		{0, 595, 540, 970, 5290, 28080},
 		{0, 215, 380, 2590, 5940, 24840},
 	}
@@ -195,7 +195,7 @@ func main() {
 
 	mortarMonkey := [3][6]int{
 		{0, 540, 540, 970, 7020, 38880},
-		{0, 325, 540, 970, 6370, 34560},
+		{0, 325, 540, 970, 7020, 41040},
 		{0, 215, 540, 970, 11340, 43200},
 	}
 
@@ -224,7 +224,7 @@ func main() {
 	}
 
 	alchemist := [3][6]int{
-		{0, 270, 380, 1405, 3185, 64800},
+		{0, 270, 380, 1405, 3185, 51840},
 		{0, 270, 515, 3240, 4860, 48600},
 		{0, 700, 485, 1080, 2970, 43200},
 	}
@@ -235,9 +235,15 @@ func main() {
 		{0, 110, 325, 650, 2700, 48600},
 	}
 
+	mermonkey := [3][6]int{
+		{0, 270, 325, 2270, 3890, 31320},
+		{0, 325, 430, 3025, 8640, 56160},
+		{0, 215, 410, 3025, 4970, 27000},
+	}
+
 	spikeFactory := [3][6]int{
 		{0, 865, 650, 2485, 10260, 135000},
-		{0, 650, 865, 2700, 5400, 45360},
+		{0, 650, 865, 2700, 6480, 45360},
 		{0, 160, 430, 1405, 3890, 32400},
 	}
 
@@ -271,7 +277,7 @@ func main() {
 		a.Quit()
 	})
 
-	originalOptions := []string{"Dart Monkey", "Boomerang Monkey", "Bomb Shooter", "Tack Shooter", "Ice Monkey", "Glue Gunner", "Sniper Monkey", "Monkey Sub", "Monkey Buccaneer", "Monkey Ace", "Heli Pilot", "Mortar Monkey", "Dartling Gunner", "Wizard Monkey", "Super Monkey", "Ninja Monkey", "Alchemist", "Druid", "Spike Factory", "Monkey Village", "Engineer"}
+	originalOptions := []string{"Dart Monkey", "Boomerang Monkey", "Bomb Shooter", "Tack Shooter", "Ice Monkey", "Glue Gunner", "Sniper Monkey", "Monkey Sub", "Monkey Buccaneer", "Monkey Ace", "Heli Pilot", "Mortar Monkey", "Dartling Gunner", "Wizard Monkey", "Super Monkey", "Ninja Monkey", "Alchemist", "Druid", "Mermonkey", "Spike Factory", "Monkey Village", "Engineer"}
 	options2 := originalOptions
 
 	entry := widget.NewEntry()
@@ -476,7 +482,7 @@ func main() {
 		case "Bomb Shooter":
 			cost = calculatePath(topWanted, midWanted, botWanted, bombShooter, top, mid, bot)
 			if !check.Checked {
-				cost += 565
+				cost += 405
 			}
 		case "Tack Shooter":
 			cost = calculatePath(topWanted, midWanted, botWanted, tackShooter, top, mid, bot)
@@ -552,6 +558,11 @@ func main() {
 			cost = calculatePath(topWanted, midWanted, botWanted, druid, top, mid, bot)
 			if !check.Checked {
 				cost += 430
+			}
+		case "Mermonkey":
+			cost = calculatePath(topWanted, midWanted, botWanted, mermonkey, top, mid, bot)
+			if !check.Checked {
+				cost += 650
 			}
 		case "Spike Factory":
 			cost = calculatePath(topWanted, midWanted, botWanted, spikeFactory, top, mid, bot)
