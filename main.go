@@ -722,11 +722,11 @@ func main() {
 
 		if entry2.Text == "Quincy" || entry2.Text == "Gwendolin" || entry2.Text == "Striker Jones" || entry2.Text == "Obyn" || entry2.Text == "Etienne" || entry2.Text == "Geraldo" {
 			heroMultiplayer = 1
-		} else if entry2.Text == "Ezili" || entry2.Text == "Pat Fusty" || entry2.Text == "Admiral Brickell" || entry2.Text == "Sauda" || entry2.Text == "Rosalia" {
+		} else if entry2.Text == "Ezili" || entry2.Text == "Pat Fusty" || entry2.Text == "Admiral Brickell" || entry2.Text == "Sauda" || entry2.Text == "Rosalia" || entry2.Text == "Corvus" {
 			heroMultiplayer = 1.425
 		} else if entry2.Text == "Benjamin" || entry2.Text == "Psi" {
 			heroMultiplayer = 1.5
-		} else if entry2.Text == "Corvus" || entry2.Text == "Adora" || entry2.Text == "Captain Churchill" {
+		} else if entry2.Text == "Adora" || entry2.Text == "Captain Churchill" {
 			heroMultiplayer = 1.71
 		} else {
 			level1.SetText("Invalid hero name")
