@@ -265,6 +265,10 @@ func main() {
 
 	a := app.New()
 	w := a.NewWindow("BTD6 Calculator")
+	r, _ := fyne.LoadResourceFromPath("images.jpg")
+
+	a.SetIcon(r)
+	w.SetIcon(r)
 
 	label1 := widget.NewLabel("")
 	label2 := widget.NewLabel("")
