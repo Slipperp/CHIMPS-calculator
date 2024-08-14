@@ -8,6 +8,19 @@ A simple yet effective calculator with features made to help you get those juicy
 
 
 
+
+# Download
+
+You can download an executable from realese page.
+
+If you want to build it yourself you need to install GO and fyne framework. You can build it using this simple command:
+
+```bash
+go build -o CHIMPS_calc
+```
+
 # Note
 
 This app is still under the development. Expect new features to be added and bugs to be fixed!
+
+
